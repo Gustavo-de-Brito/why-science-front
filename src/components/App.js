@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './Login/ViewLogin';
+import SignUp from './SignUp/ViewSignUp';
 import ResetCss from '../contexts/resetCss';
 import GlobaStyle from '../contexts/globaStyle';
 import LastQuestions from './LastQuestions/ViewLastQuestions';
@@ -12,7 +13,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={ <Login /> } />
-          <Route paht='/last-questions' element={ <LastQuestions /> } />
+          <Route path='/sign-up' element={ <SignUp /> } />
+          <Route path='/last-questions' element={ <LastQuestions /> } />
         </Routes>
       </BrowserRouter>
     </>
