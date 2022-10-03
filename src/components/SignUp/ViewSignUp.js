@@ -7,6 +7,22 @@ import ViewContainer from '../../shared/styles/ViewContainer';
 import AuthForm from '../../shared/styles/AuthForm';
 import FormButton from '../../shared/styles/FormButton';
 
+async function imageValidation(url) {
+  try {
+    const imageUrlRegex = /(https?:\/\/.*\.(?:png|jpg))/i;
+
+    if(!imageUrlRegex.test(url)) {
+      return false;
+    }
+
+    await axios.get(url);
+
+    return true;
+  } catch {
+    return false
+  }
+}
+
 function SignUp() {
   const [ name, setName ] = useState('');
   const [ email, setEmail ] = useState('');
@@ -18,10 +34,15 @@ function SignUp() {
 
   async function sendSignUp(e) {
     e.preventDefault();
+    
+    const isImageValid = await imageValidation(imageUrl);
 
     if(password !== confirmPassword) {
       setIsLoading(false)
       return alert('As senhas devem ser iguais');
+    } else if(!isImageValid) {
+      setIsLoading(false)
+      return alert('A URL da imagem é inválida');
     }
 
     const body = {
