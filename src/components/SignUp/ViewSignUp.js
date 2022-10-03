@@ -11,13 +11,14 @@ async function imageValidation(url) {
   try {
     const imageUrlRegex = /(https?:\/\/.*\.(?:png|jpg))/i;
 
-    if(!imageUrlRegex.test(url)) {
+    const response = await axios.get(url);
+    const imageUrl = response.request.responseURL;
+
+    if(!imageUrlRegex.test(imageUrl)) {
       return false;
     }
 
-    await axios.get(url);
-
-    return true;
+    return imageUrl;
   } catch {
     return false
   }
@@ -50,7 +51,7 @@ function SignUp() {
       email,
       password,
       confirmPassword,
-      imageUrl
+      imageUrl: isImageValid
     };
 
     try {
@@ -76,6 +77,7 @@ function SignUp() {
           onChange={ (e) => setName(e.target.value) }
           placeholder='Username'
           required
+          data-cy='name'
         />
         <input
           type='email'
@@ -84,6 +86,7 @@ function SignUp() {
           onChange={ (e) => setEmail(e.target.value) }
           placeholder='Email'
           required
+          data-cy='email'
         />
         <input
           type='password'
@@ -92,6 +95,7 @@ function SignUp() {
           onChange={ (e) => setPassword(e.target.value) }
           placeholder='Senha'
           required
+          data-cy='password'
         />
         <input
           type='password'
@@ -100,6 +104,7 @@ function SignUp() {
           onChange={ (e) => setConfirmPassword(e.target.value) }
           placeholder='Confirmar senha'
           required
+          data-cy='confirm-password'
         />
         <input
           type='text'
@@ -108,8 +113,9 @@ function SignUp() {
           onChange={ (e) => setImageUrl(e.target.value) }
           placeholder='URL da imagem'
           required
+          data-cy='image-url'
         />
-        <FormButton type='submit' disabled={ isLoading }>
+        <FormButton type='submit' disabled={ isLoading } data-cy='register-button' >
           { isLoading ? <ThreeDots height="34" width="100" color="white"/> : 'Cadastrar' }
         </FormButton>
         <Link style={{ marginBottom: '60px' }} to='/'>Já possui uma conta? Faça login!</Link>

@@ -41,6 +41,8 @@
     ]
   },
   "devDependencies": {
-    "@types/styled-components": "^5.1.26"
+    "@faker-js/faker": "^7.5.0",
+    "@types/styled-components": "^5.1.26",
+    "cypress": "^10.9.0"
   }
 }
