@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 const FormButton = styled.button`
+  display: flex;
+  justify-content: center;
   width: 64%;
   padding: 20px;
   margin: 18px 0 20px 0;
