@@ -28,6 +28,10 @@ function Login() {
       localStorage.setItem('token', response.token);
       navigate('/last-questions');
     } catch(err) {
+      if(err.response.status === 401) {
+        return alert('Email e/ou senha inválido(s)');
+      }
+
       alert('Ocorreu um erro durante o login');
     } finally {
       setIsLoading(false);
@@ -45,6 +49,7 @@ function Login() {
           onChange={ (e) => setEmail(e.target.value) }
           placeholder='Email'
           required
+          data-cy='email'
         />
         <input
           type='password'
@@ -53,8 +58,9 @@ function Login() {
           onChange={ (e) => setPassword(e.target.value) }
           placeholder='Senha'
           required
+          data-cy='password'
         />
-        <FormButton disabled={ isLoading } type='submit'>
+        <FormButton data-cy='login-button' disabled={ isLoading } type='submit'>
         { isLoading ? <ThreeDots height="34" width="100" color="white"/> : 'Entrar' }
         </FormButton>
         <Link to='/sign-up'>Ainda não tem login? Cadastre-se</Link>
